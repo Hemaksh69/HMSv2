@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import "tailwindcss";
+
+/* ============================================
+   AQUA PREMIUM HMS - Design System
+   Font: Plus Jakarta Sans
+   ============================================ */
+
+
+@theme {
+  /* ============================================
+     CORE BRAND TOKENS (Aqua Premium Reference Panel)
+     Primary: #0EA5E9, Secondary: #67E8F9
+     Tertiary: #5B21B6, Neutral: #73787D
+     ============================================ */
+
+  /* --- Primary --- */
+  --color-primary: #0EA5E9;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #BAE6FD;
+  --color-on-primary-container: #0C4A6E;
+  --color-primary-fixed: #E0F2FE;
+  --color-primary-fixed-dim: #7DD3FC;
+  --color-on-primary-fixed: #0C4A6E;
+  --color-on-primary-fixed-variant: #0369A1;
+  --color-surface-tint: #0EA5E9;
+  --color-inverse-primary: #38BDF8;
+
+  /* --- Secondary --- */
+  --color-secondary: #67E8F9;
+  --color-on-secondary: #083344;
+  --color-secondary-container: #CFFAFE;
+  --color-on-secondary-container: #083344;
+  --color-secondary-fixed: #A5F3FC;
+  --color-secondary-fixed-dim: #22D3EE;
+  --color-on-secondary-fixed: #083344;
+  --color-on-secondary-fixed-variant: #0E7490;
+
+  /* --- Tertiary --- */
+  --color-tertiary: #5B21B6;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #DDD6FE;
+  --color-on-tertiary-container: #2E1065;
+  --color-tertiary-fixed: #EDE9FE;
+  --color-tertiary-fixed-dim: #C4B5FD;
+  --color-on-tertiary-fixed: #2E1065;
+  --color-on-tertiary-fixed-variant: #6D28D9;
+
+  /* --- Neutral --- */
+  --color-neutral: #73787D;
+  --color-outline: #73787D;
+  --color-outline-variant: #bec8d2;
+
+  /* --- Error --- */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* --- Surfaces --- */
+  --color-surface: #f6faff;
+  --color-on-surface: #171c20;
+  --color-surface-dim: #d6dae0;
+  --color-surface-bright: #f6faff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f0f4fa;
+  --color-surface-container: #eaeef4;
+  --color-surface-container-high: #e4e8ee;
+  --color-surface-container-highest: #dee3e9;
+  --color-on-surface-variant: #3e4850;
+  --color-surface-variant: #dee3e9;
+
+  --color-background: #f6faff;
+  --color-on-background: #171c20;
+
+  --color-inverse-surface: #2c3135;
+  --color-inverse-on-surface: #edf1f7;
+
+  /* --- Border Radius --- */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  /* --- Spacing --- */
+  --hms-space-base: 4px;
+  --hms-space-xs: 8px;
+  --hms-space-sm: 16px;
+  --hms-space-md: 24px;
+  --hms-space-lg: 32px;
+  --hms-space-xl: 48px;
+  --hms-space-gutter: 24px;
+  --hms-space-margin-mobile: 16px;
+  --hms-space-margin-desktop: 40px;
+
+  /* --- Typography --- */
+  --font-family-sans: 'Plus Jakarta Sans', sans-serif;
+
+  --font-size-display-lg: 48px;
+  --line-height-display-lg: 60px;
+
+  --font-size-headline-lg: 32px;
+  --line-height-headline-lg: 40px;
+
+  --font-size-headline-lg-mobile: 28px;
+  --line-height-headline-lg-mobile: 36px;
+
+  --font-size-headline-md: 24px;
+  --line-height-headline-md: 32px;
+
+  --font-size-body-lg: 18px;
+  --line-height-body-lg: 28px;
+
+  --font-size-body-md: 16px;
+  --line-height-body-md: 24px;
+
+  --font-size-body-sm: 14px;
+  --line-height-body-sm: 20px;
+
+  --font-size-label-md: 12px;
+  --line-height-label-md: 16px;
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f6faff;
+  color: #171c20;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   MATERIAL SYMBOLS ICON SETTINGS
+   ============================================ */
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============================================
+   REUSABLE UTILITY CLASSES
+   ============================================ */
+
+/* Glass Card Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(14, 165, 233, 0.1);
+}
+
+.glass-card-strong {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 20px 50px rgba(0, 101, 145, 0.08);
+}
+
+/* Aqua Gradient Background */
+.aqua-gradient {
+  background: radial-gradient(circle at top left, #e0f2fe 0%, #f6faff 100%);
+}
+
+/* Ambient Shadows */
+.shadow-ambient {
+  box-shadow: 0 4px 24px -4px rgba(14, 165, 233, 0.12), 0 2px 8px -2px rgba(14, 165, 233, 0.08);
+}
+
+.shadow-ambient-lg {
+  box-shadow: 0 8px 32px 0 rgba(0, 101, 145, 0.05);
+}
+
+/* Input Focus Glow */
+.input-glow:focus {
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+  border-color: #0ea5e9;
+  outline: none;
+}
+
+.input-focus-ring:focus-within {
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+  border-color: #0ea5e9;
+}
+
+/* Sidebar Active Item */
+.sidebar-active-border {
+  border-left: 4px solid #0ea5e9;
+}
+
+/* Safe Areas for Mobile */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #bec8d2;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Tap Highlight Remove (Mobile) */
+.tap-highlight-transparent {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
