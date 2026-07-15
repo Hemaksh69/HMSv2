@@ -1,13 +1,11 @@
 import { DashboardLayout } from '../../components/layout/DashboardLayout';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 
 
 
 export const MobileMedicalHistory: React.FC = () => {
   const [expandedMeds, setExpandedMeds] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <DashboardLayout title="Medical History" showSearch={true}>
