@@ -1,11 +1,13 @@
 import { DashboardLayout } from '../../components/layout/DashboardLayout';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 export const MobileMedicalHistory: React.FC = () => {
   const [expandedMeds, setExpandedMeds] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <DashboardLayout title="Medical History" showSearch={true}>
@@ -76,6 +78,14 @@ export const MobileMedicalHistory: React.FC = () => {
                   </div>
                 )}
               </div>
+
+              <button
+                onClick={() => navigate('/doctor/records/1/review')}
+                className="mt-3 w-full text-[#0EA5E9] border border-[#0ea5e9]/30 hover:bg-[#0ea5e9]/10 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-sm">visibility</span>
+                Review Document
+              </button>
             </div>
           </div>
 
@@ -99,6 +109,13 @@ export const MobileMedicalHistory: React.FC = () => {
               <p className="text-xs text-[#3e4850] leading-relaxed">
                 Annual checkup. Vitals normal. Blood work ordered for standard lipid panel.
               </p>
+              <button
+                onClick={() => navigate('/doctor/records/2/review')}
+                className="mt-3 w-full text-[#0EA5E9] border border-[#0ea5e9]/30 hover:bg-[#0ea5e9]/10 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-sm">visibility</span>
+                Review Document
+              </button>
             </div>
           </div>
 

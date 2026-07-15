@@ -49,8 +49,24 @@ export const MobileDoctorDashboard: React.FC = () => {
           </div>
         </section>
 
+        {/* Upload Document Action */}
+        <section
+          onClick={() => navigate('/doctor/records/upload')}
+          className="bg-[#0EA5E9] text-white rounded-xl shadow-md p-5 flex flex-col relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
+        >
+          <div className="absolute bottom-0 right-0 w-40 h-40 bg-white/20 rounded-full blur-2xl -mr-10 -mb-10 pointer-events-none" />
+          <div className="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center mb-4">
+            <span className="material-symbols-outlined text-white">cloud_upload</span>
+          </div>
+          <h2 className="text-xl font-semibold mb-2">Upload Document</h2>
+          <p className="text-sm opacity-90 mb-4">Upload lab results, imaging, or patient records.</p>
+          <button className="bg-white text-[#0EA5E9] font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 self-start">
+            <span className="material-symbols-outlined text-sm">upload</span> Upload Now
+          </button>
+        </section>
+
         {/* Quick Clinical Note */}
-        <section 
+        <section
           onClick={() => navigate('/doctor/prescribe')}
           className="bg-[#ad85ff] text-white rounded-xl shadow-md p-5 flex flex-col relative overflow-hidden cursor-pointer active:scale-95 transition-transform"
         >

@@ -1,14 +1,42 @@
 import { DashboardLayout } from '../../components/layout/DashboardLayout';
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-
-
+type StatusFlag = 'normal' | 'review' | 'critical';
+type ReviewState = 'idle' | 'approving' | 'rejecting';
 
 export const MobileDocumentReview: React.FC = () => {
+  const navigate = useNavigate();
+  const [status, setStatus] = useState<StatusFlag>('review');
+  const [notes, setNotes] = useState('Note mild anemia indicated by low Hemoglobin. Follow up iron panel required.');
+  const [reviewState, setReviewState] = useState<ReviewState>('idle');
+
+  const handleApprove = () => {
+    setReviewState('approving');
+    setTimeout(() => {
+      setReviewState('idle');
+      navigate('/doctor/records');
+    }, 1000);
+  };
+
+  const handleReject = () => {
+    setReviewState('rejecting');
+    setTimeout(() => {
+      setReviewState('idle');
+      navigate('/doctor/records/upload');
+    }, 1000);
+  };
+
+  const statusConfig: Record<StatusFlag, { label: string; border: string; bg: string; text: string; icon: string; iconColor: string }> = {
+    normal: { label: 'Normal', border: 'border-[#bec8d2]/50', bg: 'bg-white', text: 'text-[#171c20]', icon: 'check_circle', iconColor: 'text-[#166534]' },
+    review: { label: 'Review', border: 'border-2 border-[#b45309]', bg: 'bg-[#fef3c7]', text: 'text-[#b45309]', icon: 'error', iconColor: 'text-[#b45309]' },
+    critical: { label: 'Critical', border: 'border-[#bec8d2]/50', bg: 'bg-white', text: 'text-[#171c20]', icon: 'warning', iconColor: 'text-[#ba1a1a]' },
+  };
+
   return (
     <DashboardLayout title="Review Document" showSearch={true}>
       <main className="flex-1 w-full max-w-2xl mx-auto p-4 flex flex-col gap-6">
-        
+
         {/* Document Preview */}
         <section className="bg-white rounded-xl shadow-sm border border-[#bec8d2]/30 overflow-hidden flex flex-col">
           <div className="bg-[#f0f4fa] p-4 border-b border-[#bec8d2]/30 flex justify-between items-center">
@@ -62,45 +90,65 @@ export const MobileDocumentReview: React.FC = () => {
         {/* Clinical Action Form */}
         <section className="bg-white rounded-xl shadow-sm border border-[#bec8d2]/30 p-4 flex flex-col gap-4">
           <h3 className="text-xs font-semibold text-[#3e4850] uppercase tracking-wider">Clinical Action</h3>
-          
+
           <div>
             <label className="block text-xs font-bold text-[#171c20] mb-2 uppercase">Status Flag</label>
             <div className="grid grid-cols-3 gap-2">
-              <label className="flex flex-col items-center justify-center p-2 rounded-lg border border-[#bec8d2]/50 cursor-pointer bg-white">
-                <input type="radio" name="flag" className="hidden" />
-                <span className="material-symbols-outlined text-[#166534] mb-1 text-[20px]">check_circle</span>
-                <span className="text-[10px] font-bold text-[#171c20]">Normal</span>
-              </label>
-              <label className="flex flex-col items-center justify-center p-2 rounded-lg border-2 border-[#b45309] cursor-pointer bg-[#fef3c7]">
-                <input type="radio" name="flag" className="hidden" defaultChecked />
-                <span className="material-symbols-outlined text-[#b45309] mb-1 text-[20px]">error</span>
-                <span className="text-[10px] font-bold text-[#b45309]">Review</span>
-              </label>
-              <label className="flex flex-col items-center justify-center p-2 rounded-lg border border-[#bec8d2]/50 cursor-pointer bg-white">
-                <input type="radio" name="flag" className="hidden" />
-                <span className="material-symbols-outlined text-[#ba1a1a] mb-1 text-[20px]">warning</span>
-                <span className="text-[10px] font-bold text-[#171c20]">Critical</span>
-              </label>
+              {(Object.keys(statusConfig) as StatusFlag[]).map((key) => {
+                const cfg = statusConfig[key];
+                const active = status === key;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setStatus(key)}
+                    className={`flex flex-col items-center justify-center p-2 rounded-lg border cursor-pointer transition-all ${cfg.border} ${cfg.bg} ${active ? 'ring-2 ring-[#0ea5e9]/50 scale-105' : 'opacity-60 hover:opacity-100'}`}
+                  >
+                    <span className={`material-symbols-outlined mb-1 text-[20px] ${cfg.iconColor}`}>{cfg.icon}</span>
+                    <span className={`text-[10px] font-bold ${cfg.text}`}>{cfg.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-bold text-[#171c20] mb-2 uppercase">Physician Notes</label>
-            <textarea className="w-full bg-[#f6faff] border border-[#bec8d2]/50 rounded-lg p-3 text-sm focus:outline-none focus:border-[#0ea5e9] min-h-[100px]" placeholder="Add clinical remarks here...">Note mild anemia indicated by low Hemoglobin. Follow up iron panel required.</textarea>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              className="w-full bg-[#f6faff] border border-[#bec8d2]/50 rounded-lg p-3 text-sm focus:outline-none focus:border-[#0ea5e9] min-h-[100px]"
+              placeholder="Add clinical remarks here..."
+            />
           </div>
         </section>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mt-2">
-          <button className="flex-1 py-3.5 rounded-xl border-2 border-[#bec8d2] text-[#3e4850] font-bold active:bg-[#f0f4fa] transition-colors">
-            Reject
+        <div className="flex gap-3 mt-2 mb-4">
+          <button
+            onClick={handleReject}
+            disabled={reviewState !== 'idle'}
+            className="flex-1 py-3.5 rounded-xl border-2 border-[#bec8d2] text-[#3e4850] font-bold active:bg-[#f0f4fa] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+          >
+            {reviewState === 'rejecting' ? (
+              <><span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Rejecting...</>
+            ) : (
+              'Reject'
+            )}
           </button>
-          <button className="flex-1 py-3.5 rounded-xl bg-[#0EA5E9] text-white font-bold shadow-md active:bg-[#0EA5E9]/90 transition-colors flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">done_all</span> Approve
+          <button
+            onClick={handleApprove}
+            disabled={reviewState !== 'idle'}
+            className="flex-1 py-3.5 rounded-xl bg-[#0EA5E9] text-white font-bold shadow-md active:bg-[#0EA5E9]/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
+          >
+            {reviewState === 'approving' ? (
+              <><span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Approving...</>
+            ) : (
+              <><span className="material-symbols-outlined text-[18px]">done_all</span> Approve</>
+            )}
           </button>
         </div>
 
       </main>
     </DashboardLayout>
-    );
+  );
 };

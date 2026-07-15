@@ -49,21 +49,40 @@ export const DesktopDoctorDashboard: React.FC = () => {
             </div>
 
             {/* Clinical Note Action */}
-            <div 
-              onClick={() => navigate('/doctor/prescribe')}
-              className="lg:col-span-4 bg-[#ad85ff] text-white rounded-2xl shadow-[0_8px_24px_-8px_rgba(115,46,228,0.3)] p-6 flex flex-col justify-between relative overflow-hidden hover:shadow-[0_12px_32px_-8px_rgba(115,46,228,0.4)] transition-shadow duration-300 cursor-pointer"
-            >
-              <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/20 rounded-full blur-2xl -mr-16 -mb-16 pointer-events-none" />
-              <div>
-                <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm">
-                  <span className="material-symbols-outlined text-white" style={{ fontSize: '24px' }}>edit_note</span>
+            <div className="lg:col-span-4 grid grid-rows-2 gap-6">
+              <div
+                onClick={() => navigate('/doctor/records/upload')}
+                className="bg-[#0EA5E9] text-white rounded-2xl shadow-[0_8px_24px_-8px_rgba(14,165,233,0.3)] p-6 flex flex-col justify-between relative overflow-hidden hover:shadow-[0_12px_32px_-8px_rgba(14,165,233,0.4)] transition-shadow duration-300 cursor-pointer"
+              >
+                <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/20 rounded-full blur-2xl -mr-16 -mb-16 pointer-events-none" />
+                <div>
+                  <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4 backdrop-blur-sm">
+                    <span className="material-symbols-outlined text-white" style={{ fontSize: '24px' }}>cloud_upload</span>
+                  </div>
+                  <h2 className="text-xl font-bold mb-2">Upload Document</h2>
+                  <p className="text-white/90">Upload lab results, imaging, or patient records.</p>
                 </div>
-                <h2 className="text-2xl font-bold mb-2">Quick Clinical Note</h2>
-                <p className="text-white/90 mb-6">Draft a new note for a recent patient encounter directly to their file.</p>
+                <button className="bg-white text-[#0EA5E9] font-bold py-2.5 px-5 rounded-xl flex items-center justify-center gap-2 hover:bg-white/90 transition-colors self-start shadow-sm active:scale-95">
+                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>upload</span> Upload
+                </button>
               </div>
-              <button className="bg-white text-[#420095] font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 hover:bg-white/90 transition-colors self-start shadow-sm active:scale-95">
-                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add</span> Start Draft
-              </button>
+
+              <div
+                onClick={() => navigate('/doctor/records/1/review')}
+                className="bg-[#ad85ff] text-white rounded-2xl shadow-[0_8px_24px_-8px_rgba(115,46,228,0.3)] p-6 flex flex-col justify-between relative overflow-hidden hover:shadow-[0_12px_32px_-8px_rgba(115,46,228,0.4)] transition-shadow duration-300 cursor-pointer"
+              >
+                <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/20 rounded-full blur-2xl -mr-16 -mb-16 pointer-events-none" />
+                <div>
+                  <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4 backdrop-blur-sm">
+                    <span className="material-symbols-outlined text-white" style={{ fontSize: '24px' }}>edit_note</span>
+                  </div>
+                  <h2 className="text-xl font-bold mb-2">Quick Clinical Note</h2>
+                  <p className="text-white/90">Draft a note for a recent patient encounter.</p>
+                </div>
+                <button onClick={() => navigate('/doctor/prescribe')} className="bg-white text-[#420095] font-bold py-2.5 px-5 rounded-xl flex items-center justify-center gap-2 hover:bg-white/90 transition-colors self-start shadow-sm active:scale-95">
+                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add</span> Start Draft
+                </button>
+              </div>
             </div>
           </section>
 

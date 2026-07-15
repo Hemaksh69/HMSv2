@@ -42,8 +42,12 @@ export const DesktopMedicalHistory: React.FC = () => {
                 <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>prescriptions</span>
                 Prescribe
               </button>
-              <button className="flex-1 sm:flex-none bg-[#0EA5E9] text-white px-4 py-2 rounded-lg font-semibold shadow-sm hover:bg-[#0EA5E9]/90 transition-colors text-sm">
-                Edit Vitals
+              <button 
+                onClick={() => navigate('/doctor/records/upload')}
+                className="flex-1 sm:flex-none bg-[#0EA5E9] text-white px-4 py-2 rounded-lg font-semibold shadow-sm hover:bg-[#0EA5E9]/90 transition-colors text-sm flex items-center justify-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-sm">cloud_upload</span>
+                Upload
               </button>
             </div>
           </div>
@@ -114,6 +118,17 @@ export const DesktopMedicalHistory: React.FC = () => {
                   )}
                 </div>
               </div>
+
+              {/* Review Document Action */}
+              <div className="mt-3 flex justify-end">
+                <button
+                  onClick={() => navigate('/doctor/records/1/review')}
+                  className="text-[#0EA5E9] hover:bg-[#0ea5e9]/10 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5"
+                >
+                  <span className="material-symbols-outlined text-sm">visibility</span>
+                  Review Document
+                </button>
+              </div>
             </div>
 
             {/* Timeline Entry 2 */}
@@ -136,6 +151,15 @@ export const DesktopMedicalHistory: React.FC = () => {
                 <p className="text-sm text-[#3e4850]">
                   Annual checkup. Vitals normal. Blood work ordered for standard lipid panel.
                 </p>
+                <div className="mt-3 flex justify-end">
+                  <button
+                    onClick={() => navigate('/doctor/records/2/review')}
+                    className="text-[#0EA5E9] hover:bg-[#0ea5e9]/10 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5"
+                  >
+                    <span className="material-symbols-outlined text-sm">visibility</span>
+                    Review Document
+                  </button>
+                </div>
               </div>
             </div>
 

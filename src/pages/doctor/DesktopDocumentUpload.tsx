@@ -1,21 +1,105 @@
 import { DashboardLayout } from '../../components/layout/DashboardLayout';
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+interface UploadedFile {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+}
 
+const formatBytes = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
 
-
+const fileIcon = (type: string) => {
+  if (type.startsWith('image/')) return 'image';
+  if (type === 'application/pdf') return 'picture_as_pdf';
+  return 'description';
+};
 
 export const DesktopDocumentUpload: React.FC = () => {
+  const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [files, setFiles] = useState<UploadedFile[]>([]);
+  const [patient, setPatient] = useState('');
+  const [docType, setDocType] = useState('');
+  const [notes, setNotes] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+
+  const addFiles = (newFiles: FileList | null) => {
+    if (!newFiles) return;
+    const mapped: UploadedFile[] = Array.from(newFiles).map((f) => ({
+      id: `${f.name}-${f.size}-${Date.now()}-${Math.random()}`,
+      name: f.name,
+      size: f.size,
+      type: f.type,
+    }));
+    setFiles((prev) => [...prev, ...mapped]);
+  };
+
+  const removeFile = (id: string) => {
+    setFiles((prev) => prev.filter((f) => f.id !== id));
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    addFiles(e.dataTransfer.files);
+  };
+
+  const handleUpload = () => {
+    if (files.length === 0) {
+      fileInputRef.current?.click();
+      return;
+    }
+    setUploading(true);
+    setTimeout(() => {
+      setUploading(false);
+      navigate('/doctor/records');
+    }, 1200);
+  };
+
   return (
     <DashboardLayout title="MediCare Medical Center" subtitle="" showSearch={true} showLangSwitcher={false}>
       <div className="flex-1 overflow-y-auto p-8 max-w-4xl mx-auto w-full space-y-8">
-          
-          <div>
-            <h2 className="text-2xl font-bold text-[#171c20]">Secure File Upload</h2>
-            <p className="text-[#3e4850] mt-1">Select or drag & drop patient records, lab results, or imaging files.</p>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-[#171c20]">Secure File Upload</h2>
+              <p className="text-[#3e4850] mt-1">Select or drag & drop patient records, lab results, or imaging files.</p>
+            </div>
+            <button
+              onClick={() => navigate('/doctor/records')}
+              className="text-[#3e4850] hover:bg-[#f0f4fa] px-3 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5"
+            >
+              <span className="material-symbols-outlined text-sm">arrow_back</span>
+              Back to Records
+            </button>
           </div>
 
-          <div className="border-2 border-dashed border-[#bec8d2] hover:border-[#0ea5e9] bg-white rounded-xl p-12 flex flex-col items-center justify-center gap-4 transition-all duration-300 cursor-pointer group shadow-sm relative overflow-hidden">
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept=".pdf,.jpg,.jpeg,.png"
+            className="hidden"
+            onChange={(e) => addFiles(e.target.files)}
+          />
+
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            onDrop={handleDrop}
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            className={`border-2 border-dashed rounded-xl p-12 flex flex-col items-center justify-center gap-4 transition-all duration-300 cursor-pointer group shadow-sm relative overflow-hidden ${
+              dragOver ? 'border-[#0ea5e9] bg-[#0ea5e9]/5' : 'border-[#bec8d2] hover:border-[#0ea5e9] bg-white'
+            }`}
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-[#f6faff] to-white opacity-50 z-0" />
             <div className="w-16 h-16 rounded-full bg-[#f0f4fa] group-hover:bg-[#0ea5e9]/10 flex items-center justify-center transition-colors z-10">
               <span className="material-symbols-outlined text-[32px] text-[#0EA5E9] group-hover:text-[#0ea5e9] transition-colors">cloud_upload</span>
@@ -31,67 +115,68 @@ export const DesktopDocumentUpload: React.FC = () => {
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-[#bec8d2]/30 p-6">
-            <h3 className="text-lg font-bold text-[#171c20] mb-4">Selected Files</h3>
-            <div className="space-y-4">
-              
-              <div className="flex items-center justify-between p-4 bg-[#f0f4fa] rounded-lg border border-[#bec8d2]/30 hover:border-[#0ea5e9]/50 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-[#0EA5E9]">
-                    <span className="material-symbols-outlined">picture_as_pdf</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#171c20]">Patient_Blood_Test_Q3.pdf</p>
-                    <p className="text-xs text-[#6e7881]">2.4 MB</p>
-                  </div>
-                </div>
-                <button className="text-[#3e4850] hover:text-[#ba1a1a] transition-colors p-2">
-                  <span className="material-symbols-outlined text-[20px]">delete</span>
-                </button>
-              </div>
+            <h3 className="text-lg font-bold text-[#171c20] mb-4">Selected Files {files.length > 0 && <span className="text-sm font-normal text-[#6e7881]">({files.length})</span>}</h3>
 
-              <div className="flex items-center justify-between p-4 bg-[#f0f4fa] rounded-lg border border-[#bec8d2]/30 hover:border-[#0ea5e9]/50 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-[#0ea5e9]">
-                    <span className="material-symbols-outlined">image</span>
+            {files.length === 0 ? (
+              <p className="text-sm text-[#6e7881] text-center py-8">No files selected yet. Click the upload zone above to choose files.</p>
+            ) : (
+              <div className="space-y-4">
+                {files.map((f) => (
+                  <div key={f.id} className="flex items-center justify-between p-4 bg-[#f0f4fa] rounded-lg border border-[#bec8d2]/30 hover:border-[#0ea5e9]/50 transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm text-[#0EA5E9]">
+                        <span className="material-symbols-outlined">{fileIcon(f.type)}</span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-[#171c20]">{f.name}</p>
+                        <p className="text-xs text-[#6e7881]">{formatBytes(f.size)}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeFile(f.id)}
+                      className="text-[#3e4850] hover:text-[#ba1a1a] transition-colors p-2"
+                    >
+                      <span className="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#171c20]">XRay_Chest_Frontal.jpg</p>
-                    <p className="text-xs text-[#6e7881]">5.1 MB</p>
-                  </div>
-                </div>
-                <button className="text-[#3e4850] hover:text-[#ba1a1a] transition-colors p-2">
-                  <span className="material-symbols-outlined text-[20px]">delete</span>
-                </button>
+                ))}
               </div>
-
-            </div>
+            )}
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-[#bec8d2]/30 p-6 space-y-4">
             <h3 className="text-lg font-bold text-[#171c20]">Document Details</h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-[#171c20] mb-2">Patient</label>
                 <div className="relative">
-                  <select className="w-full bg-[#f6faff] border border-[#bec8d2] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]/50 appearance-none">
-                    <option>Search patient...</option>
-                    <option>Eleanor Vance (ID: #9842-A)</option>
-                    <option>Robert Chen (ID: #3321-B)</option>
+                  <select
+                    value={patient}
+                    onChange={(e) => setPatient(e.target.value)}
+                    className="w-full bg-[#f6faff] border border-[#bec8d2] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]/50 appearance-none"
+                  >
+                    <option value="">Search patient...</option>
+                    <option value="eleanor">Eleanor Vance (ID: #9842-A)</option>
+                    <option value="robert">Robert Chen (ID: #3321-B)</option>
                   </select>
                   <span className="material-symbols-outlined absolute right-3 top-2.5 text-[#6e7881] pointer-events-none">expand_more</span>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-[#171c20] mb-2">Document Type</label>
                 <div className="relative">
-                  <select className="w-full bg-[#f6faff] border border-[#bec8d2] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]/50 appearance-none">
-                    <option>Select type...</option>
-                    <option>Lab Results</option>
-                    <option>Imaging/X-Ray</option>
-                    <option>Prescription</option>
-                    <option>Consultation Notes</option>
+                  <select
+                    value={docType}
+                    onChange={(e) => setDocType(e.target.value)}
+                    className="w-full bg-[#f6faff] border border-[#bec8d2] rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]/50 appearance-none"
+                  >
+                    <option value="">Select type...</option>
+                    <option value="lab">Lab Results</option>
+                    <option value="imaging">Imaging/X-Ray</option>
+                    <option value="prescription">Prescription</option>
+                    <option value="notes">Consultation Notes</option>
                   </select>
                   <span className="material-symbols-outlined absolute right-3 top-2.5 text-[#6e7881] pointer-events-none">expand_more</span>
                 </div>
@@ -100,18 +185,41 @@ export const DesktopDocumentUpload: React.FC = () => {
 
             <div>
               <label className="block text-sm font-semibold text-[#171c20] mb-2">Clinical Notes (Optional)</label>
-              <textarea className="w-full bg-[#f6faff] border border-[#bec8d2] rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]/50 min-h-[100px]" placeholder="Add any relevant remarks about these files..."></textarea>
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                className="w-full bg-[#f6faff] border border-[#bec8d2] rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0ea5e9]/50 min-h-[100px]"
+                placeholder="Add any relevant remarks about these files..."
+              />
             </div>
           </div>
 
           <div className="flex justify-end gap-4 pt-4 border-t border-[#bec8d2]/30">
-            <button className="px-6 py-2.5 rounded-lg border border-[#bec8d2] text-[#3e4850] font-semibold hover:bg-[#f0f4fa] transition-colors bg-white">Cancel</button>
-            <button className="px-8 py-2.5 rounded-lg bg-[#0EA5E9] text-white font-semibold hover:bg-[#0EA5E9]/90 shadow-sm flex items-center gap-2 transition-colors">
-              <span className="material-symbols-outlined text-[18px]">cloud_upload</span> Upload Files
+            <button
+              onClick={() => navigate('/doctor/records')}
+              className="px-6 py-2.5 rounded-lg border border-[#bec8d2] text-[#3e4850] font-semibold hover:bg-[#f0f4fa] transition-colors bg-white"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleUpload}
+              disabled={uploading}
+              className="px-8 py-2.5 rounded-lg bg-[#0EA5E9] text-white font-semibold hover:bg-[#0EA5E9]/90 shadow-sm flex items-center gap-2 transition-colors disabled:opacity-60"
+            >
+              {uploading ? (
+                <>
+                  <span className="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined text-[18px]">cloud_upload</span> Upload Files
+                </>
+              )}
             </button>
           </div>
 
         </div>
     </DashboardLayout>
-    );
+  );
 };
