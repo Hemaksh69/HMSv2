@@ -24,7 +24,7 @@ export const MobileLogin: React.FC = () => {
       </div>
 
       {/* Main Container */}
-      <main className="w-full max-w-[420px] px-4 relative z-10">
+      <main className="w-full max-w-[420px] px-4 relative z-10" style={{ animation: 'fadeInUp 0.7s ease-out 0.15s both' }}>
         {/* Login Card */}
         <div className="bg-white rounded-xl shadow-[0_16px_40px_-12px_rgba(0,101,145,0.15)] overflow-hidden border border-[#f0f4fa] backdrop-blur-md relative">
           {/* Glassmorphic Highlight Edge */}
@@ -32,14 +32,15 @@ export const MobileLogin: React.FC = () => {
 
           <div className="p-8 flex flex-col items-center">
             {/* Logo & Brand */}
-            <div className="mb-8 flex flex-col items-center">
-              <div className="w-20 h-20 rounded-xl bg-[#f0f4fa] border border-[#bec8d2]/30 flex items-center justify-center mb-4 shadow-sm">
-                <span
-                  className="material-symbols-outlined text-[#0EA5E9]"
-                  style={{ fontSize: '48px', fontVariationSettings: "'FILL' 1" }}
-                >
-                  medical_services
-                </span>
+            <div className="mb-6 flex flex-col items-center">
+              <div className="relative w-28 h-28 mb-3" style={{ animation: 'heroFloat 6s ease-in-out infinite' }}>
+                <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite' }} />
+                <img
+                  src="/image.png"
+                  alt="Doctor illustration"
+                  className="w-full h-full object-contain"
+                  style={{ filter: 'drop-shadow(0 8px 16px rgba(14,165,233,0.25))' }}
+                />
               </div>
               <h1 className="text-2xl font-bold text-[#0EA5E9] tracking-tight">MediCare</h1>
             </div>

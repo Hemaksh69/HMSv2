@@ -25,7 +25,7 @@ export const DesktopLogin: React.FC = () => {
           {/* ── Left Side: Illustration & Branding ── */}
           <section
             className="w-[45%] shrink-0 flex flex-col justify-center items-center p-12 relative overflow-hidden"
-            style={{ background: 'linear-gradient(145deg, #f0f8ff 0%, #e0f2fe 50%, #cffafe 100%)' }}
+            style={{ background: 'linear-gradient(145deg, #f0f8ff 0%, #e0f2fe 50%, #cffafe 100%)', animation: 'fadeInScale 0.8s ease-out' }}
           >
             {/* Branding Header */}
             <div className="absolute top-6 left-6 flex items-center gap-2">
@@ -37,11 +37,23 @@ export const DesktopLogin: React.FC = () => {
 
             {/* Illustration */}
             <div className="relative z-10 text-center">
-              <div
-                className="w-[260px] h-[220px] mx-auto mb-8 rounded-3xl flex items-center justify-center shadow-xl"
-                style={{ background: 'linear-gradient(135deg, #BAE6FD 0%, #67E8F9 100%)' }}
-              >
-                <span className="material-symbols-outlined text-white" style={{ fontSize: '110px', fontVariationSettings: "'FILL' 1" }}>health_and_safety</span>
+              {/* Floating medical icons */}
+              <div className="absolute inset-0 pointer-events-none" style={{ animation: 'none' }}>
+                <span className="material-symbols-outlined absolute text-[#0EA5E9]/30" style={{ fontSize: '28px', top: '8%', left: '8%', animation: 'floatA 4s ease-in-out infinite' }}>favorite</span>
+                <span className="material-symbols-outlined absolute text-[#67E8F9]/40" style={{ fontSize: '22px', top: '14%', right: '10%', animation: 'floatB 5s ease-in-out infinite' }}>vaccines</span>
+                <span className="material-symbols-outlined absolute text-[#0EA5E9]/25" style={{ fontSize: '20px', bottom: '18%', left: '5%', animation: 'floatC 6s ease-in-out infinite' }}>monitor_heart</span>
+                <span className="material-symbols-outlined absolute text-[#67E8F9]/35" style={{ fontSize: '18px', bottom: '22%', right: '8%', animation: 'floatA 4.5s ease-in-out infinite reverse' }}>medication</span>
+              </div>
+
+              <div className="relative w-[280px] h-[280px] mx-auto mb-6" style={{ animation: 'heroFloat 6s ease-in-out infinite' }}>
+                {/* Glowing ring */}
+                <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite' }} />
+                <img
+                  src="/image.png"
+                  alt="Doctor illustration"
+                  className="w-full h-full object-contain drop-shadow-xl"
+                  style={{ filter: 'drop-shadow(0 16px 32px rgba(14,165,233,0.2))' }}
+                />
               </div>
               <h2 className="text-3xl font-bold text-[#171c20] mb-3">Better Care<br />Better Health</h2>
               <p className="text-base text-[#3e4850] max-w-xs mx-auto leading-relaxed">
@@ -55,7 +67,7 @@ export const DesktopLogin: React.FC = () => {
           </section>
 
           {/* ── Right Side: Login Form ── */}
-          <section className="flex-1 flex flex-col justify-center bg-white px-12 py-10">
+          <section className="flex-1 flex flex-col justify-center bg-white px-12 py-10" style={{ animation: 'fadeInUp 0.7s ease-out 0.2s both' }}>
             <div className="w-full max-w-sm mx-auto">
 
               <div className="mb-8">
