@@ -32,15 +32,14 @@ export const MobileLogin: React.FC = () => {
 
           <div className="p-8 flex flex-col items-center">
             {/* Logo & Brand */}
-            <div className="mb-6 flex flex-col items-center">
-              <div className="relative w-28 h-28 mb-3" style={{ animation: 'heroFloat 6s ease-in-out infinite' }}>
-                <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite' }} />
-                <img
-                  src="/images/image.png"
-                  alt="Doctor illustration"
-                  className="w-full h-full object-contain"
-                  style={{ mixBlendMode: 'multiply', filter: 'drop-shadow(0 8px 16px rgba(14,165,233,0.25))' }}
-                />
+            <div className="mb-8 flex flex-col items-center">
+              <div className="w-20 h-20 rounded-xl bg-[#f0f4fa] border border-[#bec8d2]/30 flex items-center justify-center mb-4 shadow-sm" style={{ animation: 'heroFloat 6s ease-in-out infinite' }}>
+                <span
+                  className="material-symbols-outlined text-[#0EA5E9]"
+                  style={{ fontSize: '48px', fontVariationSettings: "'FILL' 1" }}
+                >
+                  medical_services
+                </span>
               </div>
               <h1 className="text-2xl font-bold text-[#0EA5E9] tracking-tight">MediCare</h1>
             </div>
