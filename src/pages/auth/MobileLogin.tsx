@@ -39,7 +39,7 @@ export const MobileLogin: React.FC = () => {
                   src="/images/image.png"
                   alt="Doctor illustration"
                   className="w-full h-full object-contain"
-                  style={{ filter: 'drop-shadow(0 8px 16px rgba(14,165,233,0.25))' }}
+                  style={{ mixBlendMode: 'multiply', filter: 'drop-shadow(0 8px 16px rgba(14,165,233,0.25))' }}
                 />
               </div>
               <h1 className="text-2xl font-bold text-[#0EA5E9] tracking-tight">MediCare</h1>

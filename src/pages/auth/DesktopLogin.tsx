@@ -51,8 +51,8 @@ export const DesktopLogin: React.FC = () => {
                 <img
                   src="/images/image.png"
                   alt="Doctor illustration"
-                  className="w-full h-full object-contain drop-shadow-xl"
-                  style={{ filter: 'drop-shadow(0 16px 32px rgba(14,165,233,0.2))' }}
+                  className="w-full h-full object-contain"
+                  style={{ mixBlendMode: 'multiply', filter: 'drop-shadow(0 16px 32px rgba(14,165,233,0.2))' }}
                 />
               </div>
               <h2 className="text-3xl font-bold text-[#171c20] mb-3">Better Care<br />Better Health</h2>
