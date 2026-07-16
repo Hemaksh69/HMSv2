@@ -36,7 +36,7 @@ export const MobileLogin: React.FC = () => {
               <div className="relative w-28 h-28 mb-3" style={{ animation: 'heroFloat 6s ease-in-out infinite' }}>
                 <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite' }} />
                 <img
-                  src="/image.png"
+                  src="/images/image.png"
                   alt="Doctor illustration"
                   className="w-full h-full object-contain"
                   style={{ filter: 'drop-shadow(0 8px 16px rgba(14,165,233,0.25))' }}

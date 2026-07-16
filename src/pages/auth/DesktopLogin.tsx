@@ -49,7 +49,7 @@ export const DesktopLogin: React.FC = () => {
                 {/* Glowing ring */}
                 <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite' }} />
                 <img
-                  src="/image.png"
+                  src="/images/image.png"
                   alt="Doctor illustration"
                   className="w-full h-full object-contain drop-shadow-xl"
                   style={{ filter: 'drop-shadow(0 16px 32px rgba(14,165,233,0.2))' }}
